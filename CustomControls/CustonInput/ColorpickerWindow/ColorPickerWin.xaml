@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="Shift_JIS"?>
+<Window x:Class="ParameterEditor.ColorpickerWindow.ColorPickerWin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ParameterEditor.ColorpickerWindow"
+        xmlns:data="clr-namespace:Data;assembly=Data" WindowStyle="None"
+        ResizeMode="NoResize"
+        xmlns:editor="clr-namespace:ParameterEditor"
+        mc:Ignorable="d"
+        
+        Topmost="True"
+        Title="ColorPickerWin" Height="220" Width="400">
+
+    <Window.DataContext>
+        <local:ColorPickerWinViewModel/>
+    </Window.DataContext>
+
+    <Grid Background="{Binding Source={x:Static data:ColorManager.Instance}, Path=Background}">
+        <editor:ColorPalette x:Name="Palette" />
+    </Grid>
+</Window>

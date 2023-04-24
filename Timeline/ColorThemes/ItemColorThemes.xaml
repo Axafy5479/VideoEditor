@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+
+    <!--Overriding default brushes-->
+    <SolidColorBrush Color="#71b1f5" x:Key="VideoItemColor"/>
+    <SolidColorBrush Color="#f5da71" x:Key="AudioItemColor"/>
+    <SolidColorBrush Color="#0e5408" x:Key="SpriteItemColor"/>
+
+
+
+</ResourceDictionary>

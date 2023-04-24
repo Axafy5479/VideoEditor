@@ -1,0 +1,31 @@
+<UserControl x:Class="ScreenProject.EditorScreen"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ScreenProject"
+             mc:Ignorable="d" 
+             xmlns:screen="clr-namespace:ScreenProject"
+             HorizontalAlignment="Stretch"
+             VerticalAlignment="Stretch"
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.DataContext>
+        <local:EditorScreenViewModel/>
+    </UserControl.DataContext>
+
+    <Canvas x:Name="ScreenRootGrid" Width="{Binding PixelWidth.Value}" Height="{Binding PixelHeight.Value}" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Grid Background="Black" Width="{Binding PixelWidth.Value}" Height="{Binding PixelHeight.Value}" ClipToBounds="True">
+            <ItemsControl ItemsSource="{Binding ScreenObjects}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                        <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Height="{Binding PixelHeight.Value}" Width="{Binding PixelWidth.Value}" RenderTransformOrigin="0.5,0.5"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+            <Grid.RenderTransform>
+            <ScaleTransform CenterX="{Binding CenterX.Value}" CenterY="{Binding CenterY.Value}"  ScaleX="{Binding ScaleX.Value}" ScaleY="{Binding ScaleX.Value}"/>
+        </Grid.RenderTransform>
+        </Grid>
+    </Canvas>
+</UserControl>

@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0-preview2" />
+    <PackageReference Include="MahApps.Metro" Version="2.4.9" />
+    <PackageReference Include="MessagePack" Version="2.5.108" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Data\Data.csproj" />
+    <ProjectReference Include="..\ObjectPooling\ObjectPooling.csproj" />
+    <ProjectReference Include="..\ParameterEditor\ParameterEditor.csproj" />
+    <ProjectReference Include="..\ScreenProject\ScreenProject.csproj" />
+    <ProjectReference Include="..\Timeline\Timeline.csproj" />
+    <ProjectReference Include="..\YukkuriCharacterSettingsProject\YukkuriCharacterSettingsProject.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UserControl x:Class="YukkuriCharacterSettingsProject.CharacterParameterEditorUserControl.CharaParamEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:YukkuriCharacterSettingsProject.CharacterParameterEditorUserControl"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:data="clr-namespace:Data;assembly=Data"
+             xmlns:custom="clr-namespace:ParameterEditor;assembly=CustomControls"
+             mc:Ignorable="d" 
+             Background="{Binding Source={x:Static data:ColorManager.Instance}, Path=Background}"
+             d:DesignHeight="600" d:DesignWidth="1000">
+
+    <UserControl.DataContext>
+        <local:CharaParamEditorVM/>
+    </UserControl.DataContext>
+
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Margin="20">
+            <TextBlock Text="{Binding SettingName.Value}" FontSize="40" Foreground="White"/>
+            <Grid Height="2" Background="White" HorizontalAlignment="Stretch" />
+        </StackPanel>
+
+        <Border DockPanel.Dock="Left" Width="600" Margin="20">
+            <TabControl Background="{Binding Source={x:Static data:ColorManager.Instance}, Path=Background}">
+                <TabItem Header="一般">
+                    <DockPanel Margin="40">
+                    <ContentPresenter DockPanel.Dock="Top" Content="{Binding GeneralSettingContents.Value, RelativeSource={RelativeSource AncestorType={x:Type local:CharaParamEditor}}, Mode=OneTime}"/>
+                        <Button DockPanel.Dock="Bottom" Content="削除" Width="100" Height="30" HorizontalAlignment="Left" Foreground="Red" BorderBrush="Red" Command="{Binding OnDeleteButtonClicked}"/>
+                    </DockPanel>
+                    
+                </TabItem>
+                <TabItem Header="字幕">
+                    <Grid Margin="40">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="4*"/>
+                        </Grid.RowDefinitions>
+                        <DockPanel Grid.Row="0">
+                            <Border CornerRadius="5" BorderBrush="{Binding Source={x:Static data:ColorManager.Instance}, Path=Accent}" BorderThickness="2">
+                                <TextBox TextAlignment="Center" VerticalContentAlignment="Center" FontSize="20" Foreground="{Binding FontColor.Value}" Text="ゆっくりしていってね！！ The Three Fairies! ★"/>
+                            </Border>
+                        </DockPanel>
+                        <ScrollViewer Grid.Row="1">
+                        <ContentPresenter Content="{Binding SubtitleSettingContents.Value, RelativeSource={RelativeSource AncestorType={x:Type local:CharaParamEditor}}, Mode=OneTime}"/>
+                        </ScrollViewer>
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="音声">
+                    <Grid Margin="40">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                    <ContentPresenter Grid.Column="0" Content="{Binding VoiceSettingContents.Value, RelativeSource={RelativeSource AncestorType={x:Type local:CharaParamEditor}}, Mode=OneTime}"/>
+                        <DockPanel Grid.Column="1" DockPanel.Dock="Right" Margin="0,30,0,30">
+                            <TextBox DockPanel.Dock="Top" Text="{Binding VoiceSampleText.Value, Mode=TwoWay}"/>
+                            <Button Margin="20" FontSize="60" VerticalContentAlignment="Center" Height="60" Width="80" Click="PlaySampleVoice">
+                                <Polygon Points="0,0 30,18, 0,36" Fill="{Binding Source={x:Static data:ColorManager.Instance}, Path=Foreground}" />
+                            </Button>
+                        </DockPanel>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="立ち絵">
+
+                    <DockPanel Margin="0">
+                        <!--<ContentPresenter DockPanel.Dock="Top" Content="{Binding DefaultFaceSettingContents.Value, RelativeSource={RelativeSource AncestorType={x:Type local:CharaParamEditor}}, Mode=OneTime}"/>-->
+                        <ListBox ItemsSource="{Binding DefaultFaceSettingContents, RelativeSource={RelativeSource AncestorType={x:Type local:CharaParamEditor}}, Mode=OneTime}"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                 HorizontalAlignment="Left"
+                 HorizontalContentAlignment="Left"
+                 DockPanel.Dock="Top"
+                 VerticalAlignment="Stretch">
+
+
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel IsItemsHost="True" />
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                            
+                            
+
+
+                        </ListBox>
+                    </DockPanel>
+
+
+
+                </TabItem>
+            </TabControl>
+        </Border>
+
+
+
+        <Border DockPanel.Dock="Right" Width="300" HorizontalAlignment="Right" Margin="0,0,40,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Canvas Grid.Row="0" >
+                    <ContentPresenter Content="{Binding CharacterPreview.Value}" RenderTransformOrigin="0,0">
+                        <ContentPresenter.RenderTransform>
+                            <ScaleTransform ScaleX="0.7" ScaleY="0.7"/>
+                        </ContentPresenter.RenderTransform>
+                    </ContentPresenter>
+                </Canvas>
+                <WrapPanel Grid.Row="1" ItemWidth="120" ItemHeight="30" VerticalAlignment="Bottom" HorizontalAlignment="right" Margin="0,0,20,20">
+                    <Button Content="戻る" Margin="10,0,10,0" Click="OnBackButtonClicked"/>
+                    <Button Content="閉じる" Margin="10,0,10,0" Click="OnCloseButtonClicked"/>
+                </WrapPanel>
+            </Grid>
+
+        </Border>
+    </DockPanel>
+</UserControl>

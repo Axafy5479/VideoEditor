@@ -1,0 +1,163 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:custom="clr-namespace:Timeline.CustomControl"
+    xmlns:converter="clr-namespace:Timeline.Converter"
+     xmlns:data="clr-namespace:Data;assembly=Data" 
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:Timeline">
+
+    <converter:FrameXPositionConverter x:Key="FrameXPositionConverter"/>
+    <!--<converter:FileTypeColorConverter x:Key="FileTypeColorConverter"/>-->
+    <converter:FrameWidthPositionConverter x:Key="FrameWidthPositionConverter"/>
+    
+
+    <Style TargetType="{x:Type custom:LayerLabel}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type custom:LayerLabel}">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Height="{TemplateBinding Height}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="15*"/>
+                                <RowDefinition Height="85*"/>
+                            </Grid.RowDefinitions>
+                            <Rectangle Grid.Row="0" Fill="Gray"/>
+                            <TextBlock Grid.Row="1" Text="{Binding Label, RelativeSource={RelativeSource TemplatedParent}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style TargetType="{x:Type custom:TimelineItemObject}">
+
+        <Setter Property="Template">
+
+            <Setter.Value>
+
+
+                <ControlTemplate TargetType="{x:Type custom:TimelineItemObject}">
+
+                    <custom:CursorTarget x:Name="TimelineItemBorder" CornerRadius="5"
+                            HorizontalAlignment = "Left" VerticalAlignment="Center"
+                                         Height="{Binding ItemHeight.Value}" BorderThickness="{Binding Thickness.Value}" BorderBrush="{DynamicResource MahApps.Brushes.Accent}">
+
+                        <custom:CursorTarget.Width>
+                            <MultiBinding Converter="{StaticResource FrameWidthPositionConverter}">
+                                <Binding Path="Length.Value"/>
+                                <Binding Path="PixelPerFrame.Value" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type custom:TimelineItemObject}}"/>
+                            </MultiBinding>
+                        </custom:CursorTarget.Width>
+
+
+                        <Border.RenderTransform>
+                            <TranslateTransform Y="0">
+                                <TranslateTransform.X>
+                                    <MultiBinding Converter="{StaticResource FrameXPositionConverter}">
+                                        <Binding Path="Frame.Value"/>
+                                        <Binding Path="PixelPerFrame.Value" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type custom:TimelineItemObject}}"/>
+                                    </MultiBinding>
+                                </TranslateTransform.X>
+                            </TranslateTransform>
+                        </Border.RenderTransform>
+                        <!--Background="{Binding BGColor.Value}"-->
+
+                        <Border
+                            
+                            Background="{Binding BGColor.Value}" 
+                            
+                            CornerRadius="{Binding Radius.Value}" Opacity="{Binding Alpha.Value}" Margin="-0.1">
+                            <Grid Name="TimelineItemBody"  IsHitTestVisible="False">
+                                <custom:ItemEdge BorderBrush="Silver" BorderThickness="2,0,2,0" Margin="2,5,2,5"/>
+                                <TextBlock Text="{Binding ItemName.Value}" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+
+                        <!--<i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseDown">
+                                <i:InvokeCommandAction Command="{Binding Clicked, RelativeSource={RelativeSource AncestorType={x:Type custom:TimelineItemObject}}}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>-->
+
+                    </custom:CursorTarget>
+
+                    
+
+                </ControlTemplate>
+            </Setter.Value>
+
+        </Setter>
+
+
+    </Style>
+
+
+
+
+    <Style TargetType="{x:Type custom:Tick}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type custom:Tick}">
+                    <Grid VerticalAlignment="Bottom" Height="30">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}}" VerticalAlignment="Bottom"/>
+                        <Line 
+                             Grid.Row="1"
+                        X1="0"
+                        X2="0"
+                        Y1="{Binding Y1, RelativeSource={RelativeSource TemplatedParent}}"
+                        Y2="{Binding Y2, RelativeSource={RelativeSource TemplatedParent}}"
+                        Stroke="{Binding Source={x:Static data:ColorManager.Instance}, Path=Foreground}"
+                        StrokeThickness="{Binding Thickness, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                        VerticalAlignment="Bottom"
+                        />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+
+
+
+
+    <Style TargetType="{x:Type custom:CursorLine}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type custom:CursorLine}">
+                    <Line Stroke="{DynamicResource MahApps.Brushes.Accent}" StrokeThickness="1" Y1="{Binding DataContext.CursorY1, RelativeSource={RelativeSource AncestorType={x:Type local:UserControl1}}}" Y2="{Binding DataContext.CursorY2.Value, RelativeSource={RelativeSource AncestorType={x:Type local:UserControl1}}}" Opacity="0.5">
+                        <Line.X1>
+                                <MultiBinding Converter="{StaticResource FrameXPositionConverter}">
+                                <Binding Path="CursorFrame.Value"/>
+                                <Binding Path="PixelPerFrame.Value"/>
+                                </MultiBinding>
+                        </Line.X1>
+                        <Line.X2>
+                            <MultiBinding Converter="{StaticResource FrameXPositionConverter}">
+                                <Binding Path="CursorFrame.Value"/>
+                                <Binding Path="PixelPerFrame.Value"/>
+                            </MultiBinding>
+                        </Line.X2>
+                    </Line>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+
+
+
+</ResourceDictionary>

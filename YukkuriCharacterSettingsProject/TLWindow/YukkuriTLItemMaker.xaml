@@ -1,0 +1,24 @@
+﻿<Window x:Class="YukkuriCharacterSettingsProject.TLWindow.YukkuriTLItemMaker"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:YukkuriCharacterSettingsProject.TLWindow"
+        xmlns:data="clr-namespace:Data;assembly=Data"
+         xmlns:nav="clr-namespace:YukkuriCharacterSettingsProject.NavigationService"
+        mc:Ignorable="d"
+        nav:NavigationServiceEx.Target="{Binding ElementName=content}"
+        nav:NavigationServiceEx.Startup="{x:Type local:CharacterSelector}"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        Title="YukkuriTLItemMaker" Height="450" Width="800">
+
+    <DockPanel>
+        
+        <ContentControl DockPanel.Dock="Top" x:Name="content" Margin="30"/>
+        <WrapPanel DockPanel.Dock="Bottom" ItemWidth="120" ItemHeight="30" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,20,20">
+            <Button Margin="10,0,10,0" Click="OnCloseButtonClicked" Content="閉じる"/>
+        </WrapPanel>
+    </DockPanel>
+</Window>

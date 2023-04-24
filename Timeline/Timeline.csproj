@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="7.1.2" />
+    <PackageReference Include="MessagePack" Version="2.5.108" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
+    <PackageReference Include="ReactiveProperty.WPF" Version="9.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="新しいフォルダー\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CommandProject\CommandProject.csproj" />
+    <ProjectReference Include="..\Data\Data.csproj" />
+    <ProjectReference Include="..\ObjectPooling\ObjectPooling.csproj" />
+    <ProjectReference Include="..\YukkuriCharacterSettingsProject\YukkuriCharacterSettingsProject.csproj" />
+  </ItemGroup>
+
+</Project>
